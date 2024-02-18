@@ -1,0 +1,30 @@
+{
+  "name": "Chatquest",
+  "short_name": "Transform every conversation into an adventure.",
+  "description": "Chatquest is a chat app that turns every conversation into an adventure. You can choose your own adventure, and your friends can join in. You can also create your own adventures and share them with your friends.",
+  "display_override": ["fullscreen", "minimal-ui"],
+  "id": "com.chatquest",
+  "icons": [
+    {
+      "src": "/icons/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/chat.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone"
+}

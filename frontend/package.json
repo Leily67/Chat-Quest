@@ -1,0 +1,48 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^4.29.4",
+    "@types/dompurify": "^3.0.5",
+    "@uidotdev/usehooks": "^2.4.1",
+    "core-js-pure": "^3.36.0",
+    "dompurify": "^3.0.8",
+    "emoji-picker-react": "^4.7.10",
+    "moment": "^2.30.1",
+    "next": "14.1.0",
+    "next-images": "^1.8.5",
+    "next-pwa": "^5.6.0",
+    "next-themes": "^0.2.1",
+    "react": "^18",
+    "react-audio-voice-recorder": "^2.2.0",
+    "react-avatar": "^5.0.3",
+    "react-chat-elements": "^12.0.11",
+    "react-dom": "^18",
+    "react-icons": "^5.0.1",
+    "react-spinners": "^0.13.8",
+    "react-tooltip": "^5.26.0",
+    "reactjs-popup": "^2.0.6",
+    "socket.io-client": "^4.7.4",
+    "tailwind": "^4.0.0",
+    "toast": "^0.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

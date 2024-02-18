@@ -1,0 +1,647 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Chatquest",
+    "description": "The chatquest API documentation"
+  },
+  "basePath": "/api/",
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    },
+    "ApiKey": {
+      "type": "apiKey",
+      "name": "x-api-key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": [],
+      "ApiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Authentication management"
+    },
+    {
+      "name": "authenticated-user",
+      "description": "Authenticated user endpoints"
+    },
+    {
+      "name": "users",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "messages",
+      "description": "Messages endpoints"
+    },
+    {
+      "name": "rooms",
+      "description": "Rooms endpoints"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/auth/sign-in": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Authenticate to the application",
+        "operationId": "sign-in",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Sign-In"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authenticated"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sign-up": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Register to the application",
+        "operationId": "sign-up",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Sign-Up"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authenticated"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/auth/tmp": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Create a temporary user",
+        "operationId": "temp",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authenticated"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sign-out": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Sign out",
+        "operationId": "sign-out",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authenticated"
+            }
+          },
+          "204": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/authenticated-user/me": {
+      "get": {
+        "tags": ["authenticated-user"],
+        "description": "Get the logged user",
+        "operationId": "me",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authenticated"
+            }
+          },
+          "401": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/authenticated-user/rooms": {
+      "get": {
+        "tags": ["authenticated-user"],
+        "description": "Get the rooms that the logged user has access",
+        "operationId": "me",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "room": {
+                    "$ref": "#/definitions/Room"
+                  },
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Message"
+                    }
+                  },
+                  "users": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "description": "Get all users",
+        "operationId": "users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "minimum": 1,
+            "description": "User ID"
+          }
+        ],
+        "description": "Get a user",
+        "operationId": "users-show",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/messages": {
+      "get": {
+        "tags": ["users"],
+        "description": "Get all messages of a user",
+        "operationId": "users-messages",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "tags": ["messages"],
+        "description": "Get all messages",
+        "operationId": "messages",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Message"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/messages/{id}": {
+      "get": {
+        "tags": ["messages"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "minimum": 1,
+            "description": "Message ID"
+          }
+        ],
+        "description": "Get a message",
+        "operationId": "message",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/rooms": {
+      "get": {
+        "tags": ["rooms"],
+        "description": "Get all rooms",
+        "operationId": "rooms",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Room"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/rooms/{id}": {
+      "get": {
+        "tags": ["rooms"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "minimum": 1,
+            "description": "Room ID"
+          }
+        ],
+        "description": "Get a room",
+        "operationId": "rooms-id",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Room"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/rooms/{id}/users": {
+      "get": {
+        "tags": ["rooms"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "minimum": 1,
+            "description": "Room ID"
+          }
+        ],
+        "description": "Get the users of a room",
+        "operationId": "rooms-id-users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Response": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Sign-In": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "default": "user1@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "default": "Password*123"
+        }
+      }
+    },
+    "Sign-Up": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "default": "Password*123"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "is_temporary": {
+          "type": "boolean",
+          "default": false
+        },
+        "friends": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Authenticated": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "room": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "content": {
+          "type": "string"
+        },
+        "is_edited": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_vocal": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_image": {
+          "type": "boolean",
+          "default": false
+        },
+        "from_server": {
+          "type": "boolean",
+          "default": false
+        },
+        "reactions": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/Reaction"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Reaction": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "content": {
+          "type": "string",
+          "default": "👍"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Room": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "is_public": {
+          "type": "boolean",
+          "default": false
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

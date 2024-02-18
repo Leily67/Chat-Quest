@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .btn {
+    @apply px-4 pt-1 h-10 text-lg font-semibold text-white rounded-full bg-primary hover:bg-secondary transition duration-300;
+  }
+}
+
+[data-theme="light"] {
+  /* Styles pour le mode clair */
+  --background-color: #EFE1D1;
+  --text-color: #331D2C;
+}
+
+[data-theme="dark"] {
+  /* Styles pour le mode sombre */
+  --background-color: #331D2C;
+  --text-color: #EFE1D1;
+}
+
+[data-theme="dark"] .message {
+  color: black;
+}
+
+[data-theme="dark"] .message-date {
+  color: white;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+footer {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+label.required::after {
+  content: " *";
+  color: #6c63ff;
+}
+
+.trash {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  animation: showTrash 0.5s ease;
+  transition: transform 0.4s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trash.hide {
+  display: none;
+}
+
+@keyframes showTrash {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.command-popup {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 80px;
+  max-width: calc(100% - 15px);
+  color: #020024;
+  background-color: #f5f5f5;
+}
+
+.command-popup h3 {
+  padding: 20px;
+  margin: 0;
+  background-color: #791309;
+  color: white;
+}
+
+.command-popup .command {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.command-popup .command:hover {
+  background-color: #79120921;
+}
+
+.command-popup .command p:first-child {
+  margin: 0;
+  flex: 1;
+}
+
+.command-popup .command p:nth-child(2) {
+  margin: 0 20px;
+  flex: 3;
+}
+
+.command-popup .command p:last-child {
+  margin: 0;
+  flex: 10;
+}
+
+audio {
+  width: 200px;
+}
+
+.reactions {
+  display: flex;
+  align-items: center;
+  padding: 6px 0 6px 20px;
+  justify-content: flex-end;
+  border-bottom: 1px solid #e0e0e0;
+  height: auto;
+  min-height: 40px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.reactions .bubble {
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+  gap: 5px;
+  width: calc(100% - 20px);
+  min-width: 50px;
+  height: 25px;
+  max-width: 50px;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.reactions .bubble.add-reaction {
+  margin-right: 0;
+  min-width: 25px;
+  max-width: 25px;
+}
+
+.reactions .reaction-picker {
+  bottom: 0;
+  width: 0;
+  left: 0;
+  max-height: 40px !important;
+  z-index: 1000;
+}
+
+.reactions .reaction-picker aside {
+  margin-left: 10px;
+}
+
+.reactions .bubble p {
+  max-height: 18px;
+}
+
+.reactions .bubble.active {
+  background-color: #a78295;
+  color: black;
+}
+
+.reactions .bubble:not(.active):hover {
+  background-color: #e0e0e0;
+}
